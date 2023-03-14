@@ -1,0 +1,24 @@
+{
+    "version": "0.1",
+    "deviceName": "Smart Pingu",
+    "setup": false,
+    "oobe": false,
+    "soundTest": false,
+    "wifi": {},
+    "passphrase": null,
+    "temperature": {
+        "enabled": true,
+        "max": 21,
+        "unit": "C"
+    },
+    "humidity": {
+        "enabled": true,
+        "max": 60,
+        "unit": "%"
+    },
+    "network": {
+        "enabled": true,
+        "max": 10,
+        "newDeviceNotification": false
+    }
+}

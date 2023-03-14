@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup - Smart Pingu Web</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/setup.css">
+</head>
+<body>
+    <div class="centreDiv">
+        <h1>Smart Pingu</h1>
+        <p>Welcome to your new Smart Pingu - your new way to save.</p>
+        <p>Before we get started, we need to set up a few things in order for your Smart Pingu to work correctly.</p>
+        <br>
+        <p class="form">Device name</p>
+        <input type="text" id="deviceName" placeholder="Required field">
+        <p class="form">New passphrase</p>
+        <input type="password" id="password">
+        <p class="form">Repeat passphrase</p>
+        <input type="password" id="passwordrepeat">
+
+        <button id="submitButton">
+            <div id="submitButtonText">Finish</div>
+            <img src="/images/refresh-cw.svg" id="submitButtonLoading" class="loading hidden invert">
+        </button>
+    </div>
+
+    <script src="/js/setup.js"></script>
+</body>
+</html>

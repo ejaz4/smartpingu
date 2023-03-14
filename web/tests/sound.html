@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound check - Smart Pingu Web</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/setup.css">
+</head>
+<body>
+    <div class="centreDiv">
+        <h1>Sound Check</h1>
+        <p>Do you hear a sound playing on the device?</p>
+        <p>Follow the instructions.</p>
+        <p>This is the <b>connected device</b>.</p>
+
+        <button id="submitButton" onclick="yes()">
+            <div id="submitButtonText">Yes</div>
+            <img src="/images/refresh-cw.svg" id="submitButtonLoading" class="loading hidden invert">
+        </button>
+        <p>Can't hear it? <a href="/tests/sound.html">Retry</a></p>
+    </div>
+
+    <script src="/js/tests/sound.js"></script>
+</body>
+</html>
