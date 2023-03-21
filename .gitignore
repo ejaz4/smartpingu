@@ -1,0 +1,6 @@
+node_modules/
+auth.lock
+manifest.json
+events.json
+network.json
+tempHumid.json
