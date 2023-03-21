@@ -18,6 +18,7 @@ export const networkCron = async() => {
             anyNew = true;
             var foundAt = 0;
             networkDevices.forEach((reg, index) => {
+                console.log(`${device.mac} ${reg.mac}` , device.mac == reg.mac);
                 if (device.mac == reg.mac) {
                     found = true;
                     foundAt = index;
@@ -40,6 +41,8 @@ export const networkCron = async() => {
                     timestamp: Date.now(),
                     trigger: "CRON"
                 })
+
+                console.log(newDevice);
 
                 currentlyJoinedDevices.push(newDevice);
             } else {

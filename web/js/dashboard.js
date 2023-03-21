@@ -37,6 +37,20 @@ const main = async() => {
             })
         }
 
+        if (info.temperature) {
+            const temperature = await fetch(`${hostname}:3000/temperature/now`);
+            
+            if (temperature.status == 200) {
+                const temperatureJson = await temperature.json();
+
+                const temp = temperatureJson.temperature;
+                const humid = temperatureJson.humidity;
+
+                document.getElementById("temperature").innerText = `${Math.floor(temp)}°C`;
+                document.getElementById("humidity").innerText = `${Math.floor(humid)}%`;
+            }
+        }
+
         if (info.network) {
             const devices = await fetch(`${hostname}:3000/network/listDevices`)
 

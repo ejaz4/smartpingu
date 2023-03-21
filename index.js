@@ -8,6 +8,9 @@ import { temperatureCron } from './temperature/cron.js'
 export const app = fastify();
 
 import fs from 'fs';
+import { startUp } from './setup/index.js'
+
+startUp();
 
 app.get('/', async (request, res) => {
     return `Smartpingu Embedded API`;
@@ -24,7 +27,6 @@ app.register(cors, {
 setupRoutes();
 setupWebUI();
 taskScheduler();
-temperatureCron();
 
 app.listen({
     host: '0.0.0.0',
