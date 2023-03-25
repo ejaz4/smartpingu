@@ -11,10 +11,13 @@
 <body>
     <div class="centreDiv">
         <h1>Smart Pingu</h1>
-        <p style="margin-bottom: 5px;">Version 0.2.6 Test Release</p>
+        <p style="margin-bottom: 5px;">Version 0.3 Prestable</p>
         <div id="update">
             <p style="margin-top: 0; text-align: center;" id="updateStatus">Checking for updates...</p>
-            <button style="display: none; text-align: center;" id="updateButton">Download & Install Now</button>
+            <div id="updateInit" style="display: none;">
+                <button style="text-align: center;" id="updateButton">Download & Install Now</button>
+                <p style="text-align: center;"><i>This update will install automatically at some point today.</i></p>
+            </div>
         </div>
         <p>Made with ❤️ by:</p>
         <ul>
@@ -31,6 +34,7 @@
         const updateStatus = document.getElementById("updateStatus");
         const updateDiv = document.getElementById("update");
         const updateButton = document.getElementById("updateButton");
+        const updateInit = document.getElementById("updateInit");
 
         (async() => {
             const updateAvailableReq = await fetch(`${hostname}:3000/update/check`);
@@ -49,7 +53,7 @@
 
         function update() {
             updateStatus.innerText = "Downloading update...";
-            updateButton.style.display = "none";
+            updateInit.style.display = "none";
 
             fetch(`${hostname}:3000/update/download`).then(async res => {
                 if (res.status == 200) {
@@ -63,7 +67,7 @@
                     }, 5000)
                 } else {
                     updateStatus.innerText = "Update failed to download!";
-                    updateButton.style.display = "block";
+                    updateInit.style.display = "block";
                 }
             })
         }
