@@ -11,7 +11,7 @@
 <body>
     <div class="centreDiv">
         <h1>Smart Pingu</h1>
-        <p style="margin-bottom: 5px;">Version 0.2.1 Test release</p>
+        <p style="margin-bottom: 5px;">Version 0.2.2 Test release</p>
         <div id="update">
             <p style="margin-top: 0; text-align: center;" id="updateStatus">Checking for updates...</p>
             <button style="display: none; text-align: center;" id="updateButton">Download & Install Now</button>
@@ -51,9 +51,7 @@
             updateStatus.innerText = "Downloading update...";
             updateButton.style.display = "none";
 
-            fetch(`${hostname}:3000/update/download`, {
-                method: "POST"
-            }).then(async res => {
+            fetch(`${hostname}:3000/update/download`).then(async res => {
                 if (res.status == 200) {
                     updateStatus.innerText = "Restarting to apply updates...";
                     setInterval(() => {
