@@ -7,17 +7,17 @@
     "wifi": {},
     "passphrase": null,
     "temperature": {
-        "enabled": true,
+        "enabled": false,
         "max": 21,
         "unit": "C"
     },
     "humidity": {
-        "enabled": true,
+        "enabled": false,
         "max": 60,
         "unit": "%"
     },
     "network": {
-        "enabled": true,
+        "enabled": false,
         "max": 10,
         "newDeviceNotification": false
     }

@@ -11,7 +11,11 @@
 <body>
     <div class="centreDiv">
         <h1>Smart Pingu</h1>
-        <p>Version 0.1</p>
+        <p style="margin-bottom: 5px;">Version 0.2 Test release</p>
+        <div id="update">
+            <p style="margin-top: 0; text-align: center;" id="updateStatus">Checking for updates...</p>
+            <button style="display: none; text-align: center;" id="updateButton">Download & Install Now</button>
+        </div>
         <p>Made with ❤️ by:</p>
         <ul>
             <li>Ejaz Ali - Software</li>
@@ -20,5 +24,53 @@
             <li>Adam Cham - Documentation</li>
         </ul>
     </div>
+
+    <script>
+        const hostname = `${window.location.protocol}//${window.location.hostname}`;
+
+        const updateStatus = document.getElementById("updateStatus");
+        const updateDiv = document.getElementById("update");
+        const updateButton = document.getElementById("updateButton");
+
+        (async() => {
+            const updateAvailableReq = await fetch(`${hostname}:3000/update/check`);
+            if (updateAvailableReq.status == 200) {
+                const updateDetails = await updateAvailableReq.json();
+
+                if (updateDetails.update) {
+                    updateStatus.innerText = `Update available: ${updateDetails.message}`;
+                    updateButton.style.display = "block";
+                } else {
+                    updateStatus.innerText = "You're on the most recent version!";
+                }
+            }
+        })()
+
+
+        function update() {
+            updateStatus.innerText = "Downloading update...";
+            updateButton.style.display = "none";
+
+            fetch(`${hostname}:3000/update/download`, {
+                method: "POST"
+            }).then(async res => {
+                if (res.status == 200) {
+                    updateStatus.innerText = "Restarting to apply updates...";
+                    setInterval(() => {
+                        fetch(`${hostname}:3000/settings`).then((req) => {
+                            if (req.status == 200) {
+                                window.location.href = "/about.html";
+                            }
+                        })
+                    })
+                } else {
+                    updateStatus.innerText = "Update failed to download!";
+                    updateButton.style.display = "block";
+                }
+            })
+        }
+
+        updateButton.addEventListener("click", update)
+    </script>
 </body>
 </html>

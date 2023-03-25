@@ -1,7 +1,8 @@
 import { app } from '../index.js';
 import fs from 'fs';
 import { verifySession } from './index.js';
-import { sound } from '../sounds/index.js'
+import { sound } from '../sounds/index.js';
+import { checkForUpdate, updateNow } from '../update/index.js';
 
 export const settingsRoutes = () => {
     app.get('/settings', (req, res) => {
@@ -52,5 +53,24 @@ export const settingsRoutes = () => {
         res.send({
             status: "success"
         })
+    })
+
+
+    app.get("/update/check", async(req, res) => {
+        const updates = await checkForUpdate()
+
+        return res.send(updates)
+    })
+
+    app.get("/update/download", async(req, res) => {
+        updateNow()
+
+        setTimeout(() => {
+            process.exit(0)
+        },3000)
+
+        return {
+            status: "success"
+        }
     })
 }
