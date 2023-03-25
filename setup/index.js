@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { checkForUpdate, updateNow } from '../update';
+import { checkForUpdate, updateNow } from '../update/index.js';
 
 export const startUp = () => {
     console.log("Starting up Smart Pingu...")
