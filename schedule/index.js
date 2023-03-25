@@ -27,5 +27,5 @@ export const taskScheduler = () => {
                 process.exit(0)
             },3000)
         }
-    }, 6 * 60 * 60 * 1000);
+    }, 10 * 60 * 1000);
 }
