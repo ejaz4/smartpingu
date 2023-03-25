@@ -13,7 +13,7 @@ export const checkForUpdate = async () => {
 
         if (latestCommit != currentCommit) {
             console.log('Update available!');
-            const message = "Cumulative Update";
+            var message = "Cumulative Update";
             if (reqJSON.commit.message) message = reqJSON.commit.message;
 
             return {
