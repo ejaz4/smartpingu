@@ -11,7 +11,7 @@
 <body>
     <div class="centreDiv">
         <h1>Smart Pingu</h1>
-        <p style="margin-bottom: 5px;">Version 0.3.1 Prestable</p>
+        <p style="margin-bottom: 5px;">Version 0.3.2 Prestable</p>
         <div id="update">
             <p style="margin-top: 0; text-align: center;" id="updateStatus">Checking for updates...</p>
             <div id="updateInit" style="display: none;">
@@ -43,7 +43,7 @@
 
                 if (updateDetails.update) {
                     updateStatus.innerText = `Update available: ${updateDetails.message}`;
-                    updateButton.style.display = "block";
+                    updateInit.style.display = "block";
                 } else {
                     updateStatus.innerText = "You're on the most recent version!";
                 }
