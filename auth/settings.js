@@ -63,7 +63,7 @@ export const settingsRoutes = () => {
     })
 
     app.get("/update/download", async(req, res) => {
-        updateNow()
+        await updateNow()
 
         setTimeout(() => {
             process.exit(0)

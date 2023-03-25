@@ -2,6 +2,7 @@
 import fs from "fs";
 import { networkCron } from "../network/cron.js"
 import { temperatureCron } from "../temperature/cron.js"
+import { checkForUpdate, updateNow } from "../update/index.js";
 
 export const taskScheduler = () => {
     setInterval(() => {
@@ -17,4 +18,14 @@ export const taskScheduler = () => {
             temperatureCron();
         }
     }, 45000)
+
+    setInterval(async() => {
+        const check = await checkForUpdate();
+        if (check.update) {
+            updateNow();
+            setTimeout(() => {
+                process.exit(0)
+            },3000)
+        }
+    }, 6 * 60 * 60 * 1000);
 }
