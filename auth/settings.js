@@ -69,8 +69,8 @@ export const settingsRoutes = () => {
             process.exit(0)
         },3000)
 
-        return {
+        res.send({
             status: "success"
-        }
+        })
     })
 }
