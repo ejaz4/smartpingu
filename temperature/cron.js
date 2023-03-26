@@ -17,13 +17,20 @@ export const temperatureCron = () => {
 
 
             if (temp.max < temperature) {
-                addEvent({
-                    type: "Temperature",
-                    title: "Max Temperature Reached",
-                    description: `The current temperature is ${Math.round(temperature)}°C, which is higher than the maximum temperature of ${temp.max}°C.`,
-                    timestamp: Date.now(),
-                    trigger: "CRON"
-                });
+                if (!fs.existsSync("tempLimit.lock")) {
+                    fs.writeFileSync("tempLimit.lock", "true");
+                    addEvent({
+                        type: "Temperature",
+                        title: "Max Temperature Reached",
+                        description: `The current temperature is ${Math.round(temperature)}°C, which is higher than the maximum temperature of ${temp.max}°C.`,
+                        timestamp: Date.now(),
+                        trigger: "CRON"
+                    });
+                }
+            } else {
+                if (!fs.existsSync("tempLimit.lock")) {
+                    fs.rmSync("tempLimit.lock");
+                }
             }
         } else {
             console.log(err);
