@@ -1,4 +1,4 @@
-import { app } from '../index.js';
+import { app } from '../app.js';
 import fs from 'fs';
 import { verifySession } from './index.js';
 import { sound } from '../sounds/index.js';

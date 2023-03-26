@@ -1,5 +1,5 @@
 // Device status routes, they report on the general status of the device.
-import { app } from '../index.js';
+import { app } from '../app.js';
 import os from 'node-os-utils'
 import fs from 'fs';
 

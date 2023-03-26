@@ -1,40 +1,24 @@
-import fastify from 'fastify';
-import { setupRoutes } from './routes.js'
-import { setupWebUI } from './web/index.js'
-import { networkCron } from './network/cron.js'
-import cors from '@fastify/cors'
-import { taskScheduler } from './schedule/index.js'
-import { temperatureCron } from './temperature/cron.js'
-export const app = fastify();
+import { fork, execSync } from "child_process";
+// import kill from "kill-port";
+import * as url from 'url';
 
-import fs from 'fs';
-import { startUp } from './setup/index.js'
+let proc;
 
-startUp();
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-app.get('/', async (request, res) => {
-    return `Smartpingu Embedded API`;
-});
+process.chdir(__dirname);
+execSync(`git config --global --add safe.directory ${__dirname}`);
 
-app.get('/reset', async (req, res) => {
-    fs.copyFileSync("example.manifest.json", "manifest.json");
-})
+const start = () => {
+    if (proc) proc.kill();
 
-app.register(cors, {
-    origin: '*'
-})
+    proc = fork("app.js");
 
-setupRoutes();
-setupWebUI();
-taskScheduler();
+    proc.on("exit", () => {
+        start();
+    })
+    // Promise.allSettled([kill(80, "tcp"), kill(3000, "tcp")]).then((e) => {
+    // })
+}
 
-app.listen({
-    host: '0.0.0.0',
-    port: 3000,
-}, (err, address) => {
-    if (err) {
-        console.error(err);
-        process.exit(1);
-    }
-    console.log(`Server listening on ${address}`);
-});
+start();

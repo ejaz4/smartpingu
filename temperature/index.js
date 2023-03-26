@@ -1,4 +1,4 @@
-import { app } from '../index.js'
+import { app } from '../app.js'
 import { verifySession } from '../auth/index.js';
 import fs from 'fs';
 

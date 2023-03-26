@@ -8,7 +8,7 @@
     "email": "ejazali4@protonmail.ch"
   },
   "scripts": {
-    "start": "node worker.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "@fastify/cors": "^8.2.0",

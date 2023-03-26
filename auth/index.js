@@ -1,4 +1,4 @@
-import { app } from '../index.js'
+import { app } from '../app.js'
 import crypto from 'crypto';
 import fs from 'fs';
 import { settingsRoutes } from './settings.js'
