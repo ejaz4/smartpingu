@@ -15,12 +15,12 @@ export const networkCron = async() => {
 
         for (const device of currentDevices) {
             var found = false;
-            anyNew = true;
             var foundAt = 0;
             networkDevices.forEach((reg, index) => {
                 console.log(`${device.mac} ${reg.mac}` , device.mac == reg.mac);
                 if (device.mac == reg.mac) {
                     found = true;
+                    anyNew = true;
                     foundAt = index;
                 }
             })
