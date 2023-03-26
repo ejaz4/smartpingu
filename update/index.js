@@ -1,5 +1,6 @@
 import fetch from 'node-fetch'
 import { exec, execSync } from 'child_process'
+import { addEvent } from '../logging/events.js';
 
 var currentCommit = "";
 
@@ -39,6 +40,14 @@ export const updateNow = async() => {
     if (newCommit != currentCommit) {
         console.log('Updated successfully!');
         console.log('Restarting...');
+
+        addEvent({
+            type: "Update",
+            title: "Update Successful",
+            description: `Smart Pingu was successfully updated to the latest system version.\nTo find system updates, go to About this Pingu at the bottom of the page.`,
+            timestamp: Date.now(),
+            trigger: "System Services"
+        })
 
         return true;
     }
