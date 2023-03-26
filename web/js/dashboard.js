@@ -44,10 +44,48 @@ const main = async() => {
                 const temperatureJson = await temperature.json();
 
                 const temp = temperatureJson.temperature;
-                const humid = temperatureJson.humidity;
 
                 document.getElementById("temperature").innerText = `${Math.floor(temp)}°C`;
+
+                document.getElementById("temperature").addEventListener("click", async() => {
+                    fetch(`${hostname}:3000/temperature/rescan`).then((res) => {
+                        if (res.status == 200) {
+                            window.location.reload();
+                        }
+                    })
+                })
+            }
+        } else {
+            const temperatureItems = document.getElementsByClassName("temperature");
+
+            for (let i = 0; i < temperatureItems.length; i++) {
+                temperatureItems[i].classList.add("hidden");
+            }
+        }
+
+        if (info.humidity) {
+            const humidity = await fetch(`${hostname}:3000/temperature/now`);
+            
+            if (humidity.status == 200) {
+                const humidityJson = await humidity.json();
+
+                const humid = humidityJson.humidity;
+
                 document.getElementById("humidity").innerText = `${Math.floor(humid)}%`;
+
+                document.getElementById("humidity").addEventListener("click", async() => {
+                    fetch(`${hostname}:3000/temperature/rescan`).then((res) => {
+                        if (res.status == 200) {
+                            window.location.reload();
+                        }
+                    })
+                });
+            }
+        } else {
+            const humidityItems = document.getElementsByClassName("humidity");
+
+            for (let i = 0; i < temperatureItems.length; i++) {
+                humidityItems[i].classList.add("hidden");
             }
         }
 
@@ -108,6 +146,14 @@ const main = async() => {
 
 
                 document.getElementById("network").innerText = devicesJson.length;
+
+                document.getElementById("network").addEventListener("click", async() => {
+                    fetch(`${hostname}:3000/network/rescan`).then((res) => {
+                        if (res.status == 200) {
+                            window.location.reload();
+                        }
+                    })
+                });
             }
         } else {
             const networkItems = document.getElementsByClassName("network");

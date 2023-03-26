@@ -3,8 +3,8 @@ import { sound } from '../sounds/index.js'
 import { addEvent } from '../logging/events.js';
 import fs from 'fs';
 
-export const temperatureCron = () => {
-    sensor.read(22, 4, (err, temperature, humidity) => {
+export const temperatureCron = async() => {
+    await sensor.read(22, 4, (err, temperature, humidity) => {
         if (!err) {
             fs.writeFileSync("tempHumid.json", JSON.stringify({
                 temperature: temperature,
