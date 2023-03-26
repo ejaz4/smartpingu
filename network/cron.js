@@ -20,12 +20,13 @@ export const networkCron = async() => {
                 console.log(`${device.mac} ${reg.mac}` , device.mac == reg.mac);
                 if (device.mac == reg.mac) {
                     found = true;
-                    anyNew = true;
                     foundAt = index;
                 }
             })
+            
 
             if (!found) {
+                anyNew = true;
                 const vendor = await oui(device.mac)
 
                 const newDevice = {
