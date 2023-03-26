@@ -48,6 +48,9 @@ const main = async() => {
                 document.getElementById("temperature").innerText = `${Math.floor(temp)}°C`;
 
                 document.getElementById("temperature").addEventListener("click", async() => {
+                    document.getElementById("temperature").classList.add("hidden");
+                    document.getElementsByClassName("temperatureLoading")[0].classList.remove("hidden");
+
                     fetch(`${hostname}:3000/temperature/rescan`).then((res) => {
                         if (res.status == 200) {
                             window.location.reload();
@@ -74,6 +77,9 @@ const main = async() => {
                 document.getElementById("humidity").innerText = `${Math.floor(humid)}%`;
 
                 document.getElementById("humidity").addEventListener("click", async() => {
+                    document.getElementById("humidity").classList.add("hidden");
+                    document.getElementsByClassName("humidityLoading")[0].classList.remove("hidden");
+
                     fetch(`${hostname}:3000/temperature/rescan`).then((res) => {
                         if (res.status == 200) {
                             window.location.reload();
@@ -148,6 +154,9 @@ const main = async() => {
                 document.getElementById("network").innerText = devicesJson.length;
 
                 document.getElementById("network").addEventListener("click", async() => {
+                    document.getElementById("network").classList.add("hidden");
+                    document.getElementsByClassName("networkLoading")[0].classList.remove("hidden");
+
                     fetch(`${hostname}:3000/network/rescan`).then((res) => {
                         if (res.status == 200) {
                             window.location.reload();
