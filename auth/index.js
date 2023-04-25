@@ -22,7 +22,23 @@ export const authRoutes = () => {
                 error: "Incorrect password"
             })
         }
-    })
+    });
+
+    app.post('/verify', async (req, res) => {
+        const sessionID = JSON.parse(req.body).sessionID;
+
+        const lockFile = fs.readFileSync("auth.lock");
+
+        if (lockFile == sessionID) {
+            res.status(200).send({
+                status: "success"
+            })
+        } else {
+            res.status(403).send({
+                status: "failed"
+            })
+        }
+    });
 
     app.post('/auth/password', async (req, res) => {
         var body = JSON.parse(req.body);

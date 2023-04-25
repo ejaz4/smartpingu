@@ -90,7 +90,7 @@ const main = async() => {
         } else {
             const humidityItems = document.getElementsByClassName("humidity");
 
-            for (let i = 0; i < temperatureItems.length; i++) {
+            for (let i = 0; i < humidityItems.length; i++) {
                 humidityItems[i].classList.add("hidden");
             }
         }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authenticate - Smart Pingu Web</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/setup.css">
+</head>
+
+<body>
+    <div class="centreDiv">
+        <h1>Smart Pingu</h1>
+        <p>Enter passphrase to escalate privileges .</p>
+        <input placeholder="Passphrase" id="a1" type="password">
+
+        <br>
+        <i>This is the same passphrase you made when setting up.</i>
+        <br>
+
+        <button id="authenticateButton">Authenticate</button>
+
+
+
+
+        <br>
+        <p><a href="#forgotPassphraseAction">Forgot passphrase?</a></p>
+
+        <div id="forgotPassphraseAction" style="text-align: center;">
+            <p>If you've forgotten your passphrase, then you'll<br>need to initiate a factory reset of your Smart Pingu.
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        const hostname = `${window.location.protocol}//${window.location.hostname}`;
+
+        var path = new URL(document.location).searchParams.get("flow");
+
+        if (path == null) {
+            alert("Sorry! That didn't work.");
+            document.getElementsByClassName("centreDiv")[0].innerText = "Couldn't find this flow.\nIf you have just clicked the Authenticate button and seeing this message, please report this problem to the Smart Pingu Team."
+        } else {
+            path = atob(decodeURIComponent(path));
+        }
+
+        const authBtn = document.getElementById("authenticateButton");
+        const a1 = document.getElementById("a1");
+
+        authBtn.addEventListener("click", () => {
+            const a2 = a1.value;
+
+            if (a2.length < 8) {
+                alert("Sorry! That didn't work.");
+                return;
+            }
+
+            fetch(`${hostname}:3000/authenticate`, {
+                method: 'post',
+                body: JSON.stringify({
+                    password: a2
+                })
+            }).then((res) => {
+                if (res.status == 200) {
+                    res.json().then((data) => {
+                        var ls = window.localStorage;
+                        ls.setItem("session", data.sessionID)
+                        window.location.replace(path);
+                    })
+                } else {
+                    alert("Sorry! That didn't work.")
+                }
+            })
+        })
+
+    </script>
+</body>
+
+</html>

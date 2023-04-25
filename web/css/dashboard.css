@@ -6,6 +6,9 @@
     padding: 10px;
     border-bottom: 1px solid #e9ecef;
     box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .content {
@@ -83,10 +86,6 @@ body {
 
 .row div {
     width: 100%;
-}
-
-.hidden {
-    display: none;
 }
 
 .footer {

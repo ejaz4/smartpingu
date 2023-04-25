@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,11 +9,24 @@
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/global.css">
 </head>
+
 <body>
     <div class="header">
         <h2 id="deviceName"></h2>
+        <div id="accountArea">
+            <div class="checkingCredentials">
+                <img src="/images/refresh-cw.svg" class="loading">
+                <i>Verifying...</i>
+            </div>
+            <div class="notAuthenticated hidden">
+                <button id="authenticateNowButton">Authenticate</button>
+            </div>
+            <div class="authenticated hidden">
+                <div><a href="#" id="signOutBtn">Sign Out</a></div>
+            </div>
+        </div>
     </div>
-    
+
     <div class="content">
         <div class="bigOverview">
             <div class="overview temperature">
@@ -37,7 +51,7 @@
         <div class="recent">
             <h2>Recent Events</h2>
             <div class="table" id="recent-events">
-                
+
             </div>
         </div>
 
@@ -64,5 +78,7 @@
     </div>
 
     <script src="/js/dashboard.js"></script>
+    <script src="/js/global.js"></script>
 </body>
+
 </html>

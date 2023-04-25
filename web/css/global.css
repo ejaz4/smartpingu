@@ -64,6 +64,24 @@ button img {
     height: 17px;
 }
 
+#accountArea {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+#accountArea > div {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.checkingCredentials {
+    flex-direction: row !important;
+    
+}
+
 .hidden {
-    display: none;
+    display: none !important;
 }

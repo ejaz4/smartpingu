@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +9,11 @@
     <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/index.css">
 </head>
+
 <body>
     <div class="centreDiv">
         <h1>Smart Pingu</h1>
-        <p style="margin-bottom: 5px;">Version 1.1.1 (Build 290323)</p>
+        <p style="margin-bottom: 5px;">Version 1.2.1 (Build 25042023)</p>
         <div id="update">
             <p style="margin-top: 0; text-align: center;" id="updateStatus">Checking for updates...</p>
             <div id="updateInit" style="display: none;">
@@ -36,7 +38,7 @@
         const updateButton = document.getElementById("updateButton");
         const updateInit = document.getElementById("updateInit");
 
-        (async() => {
+        (async () => {
             const updateAvailableReq = await fetch(`${hostname}:3000/update/check`);
             if (updateAvailableReq.status == 200) {
                 const updateDetails = await updateAvailableReq.json();
@@ -75,4 +77,5 @@
         updateButton.addEventListener("click", update)
     </script>
 </body>
+
 </html>

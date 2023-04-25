@@ -17,7 +17,8 @@
 
         <form>
             <h2>Basic</h2>
-            <p>You currently cannot change basic information while your Smart Pingu is running. To change basic information, reset your Smart Pingu instead.</p>
+            <p>You currently cannot change basic information while your Smart Pingu is running. To change basic
+                information, reset your Smart Pingu instead.</p>
             <p>Device Name</p>
             <input type="text" id="device-name" readonly>
 
@@ -27,13 +28,15 @@
             <input type="checkbox" id="scan-lan" name="scan-lan" checked>
             <label for="scan-lan">Allow Smart Pingu to scan for devices on your local network</label><br>
 
-            <p>Enter a number below to select the maximum number of devices you want connected to your home Wi-Fi network. If the number of devices falls above the number you set, you will be alerted.</p>
+            <p>Enter a number below to select the maximum number of devices you want connected to your home Wi-Fi
+                network. If the number of devices falls above the number you set, you will be alerted.</p>
             <input type="number" id="max-devices" name="max-devices" min="0" max="100">
             <br><br>
 
             <input type="checkbox" id="alert-computers" name="alert-computers" checked>
             <label for="alert-computers">Allow Smart Pingu to alert you when a new device comes online.</label><br>
-            <p>This setting is experimental, some devices use a technology that keep them always connected to the network even when they're turned off.</p>
+            <p>This setting is experimental, some devices use a technology that keep them always connected to the
+                network even when they're turned off.</p>
             <br><br>
 
             <i>You can configure Automations later to wake up devices when certain events are pulled.</i>
@@ -43,10 +46,11 @@
             <input type="checkbox" id="temperature" name="temperature" checked>
             <label for="temperature">Allow Smart Pingu to take temperature readings of the environment</label><br>
 
-            <p>Set the maximum temperature you want the environment to get, before you are alerted to turn down your heating.</p>
+            <p>Set the maximum temperature you want the environment to get, before you are alerted to turn down your
+                heating.</p>
             <input type="number" id="temperatureMax" name="temperatureMax" min="0" max="40">
             <br><br>
-            
+
             <input type="checkbox" id="humidity" name="humidity" checked>
             <label for="humidity">Allow Smart Pingu to take humidity readings of the environment</label><br>
             <br>
@@ -58,7 +62,8 @@
         <button onclick="submit()">Save</button>
 
         <h2>Tests</h2>
-        <p>If you need to check that your Smart Pingu is not working correctly, choose one of the available tests below to run.</p>
+        <p>If you need to check that your Smart Pingu is not working correctly, choose one of the available tests below
+            to run.</p>
         <ul>
             <li><a href="/tests/sound.html">Sound Test</a></li>
         </ul>
@@ -66,6 +71,7 @@
 
 
     <script src="/js/oobe.js"></script>
+    <script src="/js/global.js"></script>
 </body>
 
 </html>
