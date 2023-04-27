@@ -13,6 +13,15 @@ export const authRoutes = () => {
 
         if (verified) {
             const sessionID = crypto.randomBytes(16).toString("hex");
+            
+            addEvent({
+                type: "Login",
+                title: "New Login",
+                description: `A new device has just logged in to Smart Pingu.`,
+                timestamp: Date.now(),
+                trigger: "Security"
+            })
+            
             fs.writeFileSync("auth.lock", sessionID);
             res.status(200).send({
                 sessionID: sessionID
