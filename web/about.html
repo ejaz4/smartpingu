@@ -8,10 +8,12 @@
     <title>About - Smart Pingu Web</title>
     <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/setup.css">
 </head>
 
 <body>
     <div class="centreDiv">
+        <a href="/settings.html" class="backButton"><img src="/images/chevron-left.svg" />Back</a>
         <h1>Smart Pingu</h1>
         <p style="margin-bottom: 5px;">Version 1.2.1 (Build 25042023)</p>
         <div id="update">
@@ -48,6 +50,7 @@
                     updateInit.style.display = "block";
                 } else {
                     updateStatus.innerText = "You're on the most recent version!";
+                    if (updateDetails.message) updateStatus.innerText = updateDetails.message
                 }
             }
         })()

@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .form {
     text-align: left;
     width: 100%;
@@ -10,4 +14,126 @@
 
 #forgotPassphraseAction:target {
     display: block;
+}
+
+.categories {
+    /* display: none; */
+    justify-content: start;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.categories:target {
+    display: flex;
+    animation: catShow 0.2s ease forwards;
+}
+
+.categories:not(:target) {
+    display: none;
+}
+
+@keyframes catShow {
+    0% {
+        display: flex !important;
+        transform: translateX(-70px);
+        opacity: 0;
+    }
+    99% {
+        display: flex !important;
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+.categoryItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: rgba(0, 128, 255, 0.05);
+    border-radius: 15px;
+    /* cursor: pointer; */
+}
+
+a {
+    text-decoration: none !important;
+    cursor: default;
+}
+
+.categoryItem * {
+    text-decoration: none !important;
+    color: black;
+}
+
+.categoryItem > div {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.categoryItem:hover {
+    background-color: rgba(0, 128, 255, 0.09);
+}
+
+
+.catScreen {
+    display: none;
+}
+
+.catScreen:target {
+    display: block;
+    justify-content: start;
+    flex-direction: column;
+    animation: catScreenShow 0.2s ease;
+}
+
+@keyframes catScreenShow {
+    0% {
+        transform: translateX(70px);
+        opacity: 0;
+    }
+    100% { 
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+.centreDiv {
+    width: 680px;
+    max-width: calc(100vw - 40px);
+}
+
+.backButton {
+    padding: 10px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    background-color: rgba(0, 128, 255, 0.05);
+    color: black;
+    align-items: center;
+    gap: 10px;
+    border-radius: 25px;
+}
+
+.backButton:hover {
+    background-color: rgba(0, 128, 255, 0.09);
+}
+
+.saveButton {
+    padding: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    background-color: rgba(0, 128, 255, 0.05);
+    color: black;
+    align-items: center;
+    gap: 10px;
+    border-radius: 25px;
+    line-height: 24px;
+    font-size: 16px;
+    float: right;
 }

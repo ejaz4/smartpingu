@@ -15,14 +15,81 @@
         <h1>Smart Pingu</h1>
         <p>Change settings related to your Smart Pingu.</p>
 
-        <form>
+        <noscript>
+            <p><b>Javascript</b> is required to view and modify system settings.</p>
+        </noscript>
+
+        <div id="setup" class="categories">
+            <a href="#nearby">
+                <div class="categoryItem">
+                    <div>
+                        <img src="/images/wifi.svg" alt="" />
+                        <p>Nearby Devices</p>
+                    </div>
+                    <img src="/images/chevron-right.svg" fill="white" />
+                </div>
+            </a>
+
+            <a href="#temperature">
+                <div class="categoryItem">
+                    <div>
+                        <img src="/images/thermometer.svg" alt="" />
+                        <p>Temperature</p>
+                    </div>
+                    <img src="/images/chevron-right.svg" fill="white" />
+                </div>
+            </a>
+
+            <a href="#sound">
+                <div class="categoryItem hidden">
+                    <div>
+                        <img src="/images/volume.svg" alt="" />
+                        <p>Sound</p>
+                    </div>
+                    <img src="/images/chevron-right.svg" />
+                </div>
+            </a>
+
+            <a class="hidden" href="#plugins">
+                <div class="categoryItem">
+                    <div>
+                        <img src="/images/loader.svg" alt="" />
+                        <p>Plugins</p>
+                    </div>
+                    <img src="/images/chevron-right.svg" />
+                </div>
+            </a>
+
+            <a href="/about.html">
+                <div class="categoryItem">
+                    <div>
+                        <img src="/images/info.svg" alt="" />
+                        <p>About This Pingu</p>
+                    </div>
+                    <div>
+                        <div id="updateNotifBlob" class="notifBlob hidden">Update Available</div>
+                        <img src="/images/chevron-right.svg" />
+                    </div>
+                </div>
+            </a>
+
+            <p>
+                ©
+                <script>const t = new Date(); document.write(t.getFullYear())</script> Smart Pingu
+            </p>
+        </div>
+
+        <div class="catScreen" id="basic">
             <h2>Basic</h2>
             <p>You currently cannot change basic information while your Smart Pingu is running. To change basic
                 information, reset your Smart Pingu instead.</p>
             <p>Device Name</p>
             <input type="text" id="device-name" readonly>
+        </div>
 
-            <h2>Networking</h2>
+        <div class="catScreen" id="nearby">
+            <a href="#setup" class="backButton"><img src="/images/chevron-left.svg" />Back</a>
+            <h2>Nearby</h2>
             <p>Configure settings related to your network and internet connection.</p>
 
             <input type="checkbox" id="scan-lan" name="scan-lan" checked>
@@ -39,8 +106,11 @@
                 network even when they're turned off.</p>
             <br><br>
 
-            <i>You can configure Automations later to wake up devices when certain events are pulled.</i>
+            <button class="saveButton" onclick="submit()">Save</button>
+        </div>
 
+        <div id="temperature" class="catScreen">
+            <a href="#setup" class="backButton"><img src="/images/chevron-left.svg" />Back</a>
             <h2>Temperature</h2>
             <p>Configure settings related to your environment.</p>
             <input type="checkbox" id="temperature" name="temperature" checked>
@@ -57,20 +127,36 @@
             <p>Set the maximum humidity % you want the environment to get, before you are alerted.</p>
             <input type="number" id="humidityMax" name="humidityMax" min="0" max="100">
             <br><br>
-        </form>
 
-        <button onclick="submit()">Save</button>
+            <button class="saveButton" onclick="submit()">Save</button>
+        </div>
 
-        <h2>Tests</h2>
-        <p>If you need to check that your Smart Pingu is not working correctly, choose one of the available tests below
-            to run.</p>
-        <ul>
-            <li><a href="/tests/sound.html">Sound Test</a></li>
-        </ul>
+        <div id="sound" class="catScreen">
+            <a href="#setup" class="backButton"><img src="/images/chevron-left.svg" />Back</a>
+            <h2>Sound</h2>
+            <p>Configure settings related to your sound.</p>
+            <input type="checkbox" id="playSounds" name="playSounds" checked>
+            <label for="playSounds">Play Sounds via Smart Pingu's speakers</label><br>
+
+            <p>Set the maximum temperature you want the environment to get, before you are alerted to turn down your
+                heating.</p>
+            <input type="number" id="temperatureMax" name="temperatureMax" min="0" max="40">
+            <br><br>
+
+            <input type="checkbox" id="humidity" name="humidity" checked>
+            <label for="humidity">Allow Smart Pingu to take humidity readings of the environment</label><br>
+            <br>
+            <p>Set the maximum humidity % you want the environment to get, before you are alerted.</p>
+            <input type="number" id="humidityMax" name="humidityMax" min="0" max="100">
+            <br><br>
+
+            <button class="saveButton" onclick="submit()">Save</button>
+        </div>
     </div>
 
 
-    <script src="/js/oobe.js"></script>
+    <!-- <script src="/js/oobe.js"></script> -->
+    <script src="/js/settings.js"></script>
     <script src="/js/global.js"></script>
 </body>
 

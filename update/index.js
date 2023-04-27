@@ -23,16 +23,22 @@ export const checkForUpdate = async () => {
             }
         } else {
             console.log('The system is up to date.');
-            
+
             return {
                 update: false,
                 message: null
             }
         }
     }
+    if (req.status == 403) {
+        return {
+            update: false,
+            message: "Cannot retrieve updates."
+        }
+    }
 }
 
-export const updateNow = async() => {
+export const updateNow = async () => {
     execSync('git pull origin main');
 
     const newCommit = execSync('git rev-parse HEAD').toString().trim();
