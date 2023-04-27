@@ -17,25 +17,31 @@ try {
 } catch (err) { }
 
 
-const ls = window.localStorage
-fetch(`${window.location.protocol}//${window.location.hostname}:3000/verify`, {
-    method: 'post',
-    body: JSON.stringify({
-        sessionID: ls.getItem("session")
+async function verify() {
+    const ls = window.localStorage
+    const verifyFetch = await fetch(`${window.location.protocol}//${window.location.hostname}:3000/verify`, {
+        method: 'post',
+        body: JSON.stringify({
+            sessionID: ls.getItem("session")
+        })
     })
-}).then((res) => {
-    try {
-        document.getElementsByClassName("checkingCredentials")[0].classList.add("hidden")
-    } catch (err) { }
 
-    if (res.status == 200) {
-        authenticated = true;
+    if (verifyFetch) {
         try {
-            document.getElementsByClassName("authenticated")[0].classList.remove("hidden")
+            document.getElementsByClassName("checkingCredentials")[0].classList.add("hidden")
         } catch (err) { }
-    } else {
-        try {
-            document.getElementsByClassName("notAuthenticated")[0].classList.remove("hidden")
-        } catch (err) { }
+
+        if (verifyFetch.status == 200) {
+            authenticated = true;
+            try {
+                document.getElementsByClassName("authenticated")[0].classList.remove("hidden")
+            } catch (err) { }
+        } else {
+            try {
+                document.getElementsByClassName("notAuthenticated")[0].classList.remove("hidden")
+            } catch (err) { }
+        }
     }
-})
+}
+
+verify();
