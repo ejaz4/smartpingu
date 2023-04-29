@@ -10,7 +10,7 @@ var flowHotState = {};
 
 function addAction(id) {
     flowHotState.steps.push({
-        id: flowHotState.steps.length + 1,
+        id: btoa(Math.random() * 100),
         step: id,
         arguments: []
     });

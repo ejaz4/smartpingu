@@ -2,6 +2,7 @@ import fs from 'fs';
 import { sound } from '../sounds/index.js';
 import fetch from 'node-fetch';
 import { checkForUpdate } from '../update/index.js';
+import { addEvent } from '../logging/events.js';
 
 var automations = {};
 var triggerProperties = {};
@@ -109,9 +110,37 @@ const runFlow = async (steps, automationID, variables) => {
             hotVars[`_${step.id}+Update Available`] = (await checkForUpdate()).update;
         }
 
+        if (step.step == "forceLogout") {
+            fs.rmSync("auth.lock");
+        }
 
+        if (step.step == "logEvent") {
+            addEvent({
+                type: "Automations",
+                title: args[0],
+                description: args[1],
+                trigger: "Automations"
+            })
+        }
 
+        if (step.step == "lastEvent") {
+            const eventsFile = JSON.parse(fs.readFileSync("events.json"));
 
+            const event = eventsFile[0];
+
+            hotVars[`_${step.id}+Title`] = event.title;
+            hotVars[`_${step.id}+Description`] = event.description;
+            hotVars[`_${step.id}+Trigger`] = event.trigger;
+            hotVars[`_${step.id}+Type`] = event.type;
+            hotVars[`_${step.id}+time`] = event.timestamp;
+
+        }
+
+        if (step.step == "getVersions") {
+            const manifest = JSON.parse(fs.readFileSync("manifest.json"));
+
+            hotVars[`_${step.id}+Manifest Version`] = manifest.version;
+        }
 
 
         await timer(2000)

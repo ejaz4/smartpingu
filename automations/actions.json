@@ -1,7 +1,7 @@
 {
     "Development": [
         {
-            "humanReadable": "Console Log",
+            "humanReadable": "Console log",
             "id": "consoleLog",
             "arguments": {
                 "in": [
@@ -54,6 +54,41 @@
             "arguments": {
                 "in": [],
                 "out": []
+            }
+        },
+        {
+            "humanReadable": "Log an event",
+            "id": "logEvent",
+            "arguments": {
+                "in": [
+                    "Title",
+                    "Description"
+                ],
+                "out": []
+            }
+        },
+        {
+            "humanReadable": "Get last event",
+            "id": "lastEvent",
+            "arguments": {
+                "in": [],
+                "out": [
+                    "Title",
+                    "Description",
+                    "Trigger",
+                    "Type",
+                    "Time"
+                ]
+            }
+        },
+        {
+            "humanReadable": "Get version number",
+            "id": "getVersions",
+            "arguments": {
+                "in": [],
+                "out": [
+                    "Manifest Version"
+                ]
             }
         }
     ]
