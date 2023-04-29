@@ -290,7 +290,7 @@ function saveFlow() {
     const ls = window.localStorage;
 
     if (!authenticated) {
-        var w = window.open(`authenticate.html?flow=${encodeURIComponent(btoa(`${hostname}/tests/settingsauthwork.html`))}`, undefined, "popup,width=400,height=600")
+        var w = window.open(`/authenticate.html?flow=${encodeURIComponent(btoa(`${hostname}/tests/settingsauthwork.html`))}`, undefined, "popup,width=400,height=600")
         var timer = setInterval(function () {
             if (w.closed) {
                 clearInterval(timer);
