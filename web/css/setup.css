@@ -115,6 +115,7 @@ a {
     align-items: center;
     gap: 10px;
     border-radius: 25px;
+    height: fit-content;
 }
 
 .backButton:hover {

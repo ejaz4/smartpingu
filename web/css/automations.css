@@ -1,0 +1,210 @@
+.head {
+    /* float: left; */
+    margin-top: 30px;
+    align-items: center;
+}
+
+button {
+    padding: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    background-color: rgba(0, 128, 255, 0.05);
+    color: black;
+    align-items: center;
+    gap: 10px;
+    border-radius: 25px;
+    line-height: 24px;
+    font-size: 16px;
+    float: right;
+}
+
+.flowList {
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.flowItem {
+    display: flex;
+    justify-content: start;
+    align-items: left;
+    flex-direction: column;
+    padding: 15px;
+    background-color: rgba(0, 128, 255, 0.05);
+    border-radius: 15px;
+    overflow-y: hidden;
+}
+
+.argument {
+    padding: 5px;
+    background-color: rgba(0, 128, 255, 0.1);
+    border-radius: 5px;
+    width: fit-content;
+    display: inline-block;
+}
+
+.variables {
+    padding: 10px;
+    background-color: rgba(0, 128, 255, 0.1);
+    border-radius: 5px;
+}
+
+.variables > div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.variables > div > p {
+    min-width: fit-content;
+}
+
+
+.floatingButton {
+    margin-top: 10px;
+    margin-bottom: -45px;
+    position: relative;
+    width: fit-content;
+    justify-content: start;
+    gap: 5px;
+    display: flex;
+    transition: margin-bottom 0.4s ease !important;
+}
+
+.floatingButton > div {
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.floatingButton img {
+    height: 16px;
+    display: block;
+}
+
+.flowItem:hover .floatingButton {
+    display: flex;
+    margin-bottom: 0px;
+}
+
+.flowItem:hover .floatingButton div:hover {
+    background-color: rgba(0, 128, 255, 0.1);
+}
+
+.variableBar {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.variableBar > div {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.dots {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: rgba(0, 128, 255, 1);
+    animation: fadeOutIn 5s ease infinite;
+    border-radius: 15px;
+    opacity: 0.1;
+}
+
+@keyframes fadeOutIn {
+    0% {
+        opacity: 0.1;
+    }
+    10% {
+        opacity: 0.5;
+    }
+    20% {
+        opacity: 0.1;
+    }
+    100% {
+        opacity: 0.1;
+    }
+}
+
+.addItem {
+    display: none;
+    position: absolute;
+    bottom: 70px;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0px 5px 5px 5px rgba(0,0,0,0.1);
+    width: 400px !important;
+    height: 400px;
+}
+
+.addItem:target {
+    display: block;
+}
+
+#categories {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+#categories > div {
+    background-color: rgba(0, 128, 255, 0.05);
+    border-radius: 15px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#categories > div:hover {
+    background-color: rgba(0, 128, 255, 0.1);
+}
+
+.addScreen {
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    justify-content: start;
+
+    flex-direction: column;
+}
+
+.addScreen .backButton {
+    margin: 0;
+    cursor: pointer;
+}
+
+.actionItem {
+    background-color: rgba(0, 128, 255, 0.05);
+    border-radius: 15px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+}

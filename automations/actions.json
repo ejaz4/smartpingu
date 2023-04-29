@@ -1,0 +1,60 @@
+{
+    "Development": [
+        {
+            "humanReadable": "Console Log",
+            "id": "consoleLog",
+            "arguments": {
+                "in": [
+                    "Data"
+                ],
+                "out": []
+            }
+        }
+    ],
+    "Sounds": [
+        {
+            "humanReadable": "Play a sound",
+            "id": "playSound",
+            "arguments": {
+                "in": [
+                    "File Name"
+                ],
+                "out": []
+            }
+        }
+    ],
+    "Connectivity": [
+        {
+            "humanReadable": "Send a GET request to a server",
+            "id": "sendGETRequest",
+            "arguments": {
+                "in": [
+                    "URL"
+                ],
+                "out": [
+                    "Response"
+                ]
+            }
+        }
+    ],
+    "Maintenance": [
+        {
+            "humanReadable": "Check for system updates",
+            "id": "checkForUpdates",
+            "arguments": {
+                "in": [],
+                "out": [
+                    "Update Available"
+                ]
+            }
+        },
+        {
+            "humanReadable": "Log out all devices",
+            "id": "forceLogout",
+            "arguments": {
+                "in": [],
+                "out": []
+            }
+        }
+    ]
+}

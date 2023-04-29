@@ -1,0 +1,1 @@
+{"Pingu Online":{"trigger":"deviceConnected","steps":[{"id":1,"step":"playSound","arguments":["loadsofdevices.mp3"]}]},"Temperature Sender":{"trigger":"temperatureHigh","steps":[{"id":2,"step":"consoleLog","arguments":["hey"]},{"id":2,"step":"checkForUpdates","arguments":[]},{"id":3,"step":"consoleLog","arguments":["_2+Update Available"]}]}}

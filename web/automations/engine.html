@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Flow - Smart Pingu Web</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/setup.css">
+    <link rel="stylesheet" href="/css/automations.css">
+</head>
+
+<body>
+    <div class="centreDiv">
+        <div class="head">
+            <a href="/automations/automations.html" class="backButton"><img src="/images/chevron-left.svg" />Back</a>
+            <button onclick="saveFlow()">Save</button>
+        </div>
+
+        <h1 id="automationName"></h1>
+
+        <noscript>
+            <p><b>Javascript</b> is required to view and modify Automations.</p>
+        </noscript>
+
+        <div id="flowList" class="flowList">
+
+        </div>
+
+
+        <div class="addItem" id="addItem">
+            <div id="categories">
+
+            </div>
+        </div>
+
+
+
+        <a href="#addButton" id="addButton"
+            onclick="(() => { const a = document.getElementById('addButton'); a.setAttribute('href', (a.getAttribute('href') == '#addItem') ? '#addButton' : '#addItem' ) })()"><button>+</button></a>
+
+    </div>
+
+
+    <!-- <script src="/js/oobe.js"></script> -->
+    <script src="/js/global.js"></script>
+    <script src="/js/automations/engine.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+[
+    {
+        "humanReadable": "Smart Pingu connects to the internet",
+        "id": "internetConnected",
+        "arguments": []
+    },
+    {
+        "humanReadable": "the temperature gets too high",
+        "id": "temperatureHigh",
+        "arguments": [
+            "Current Temperature",
+            "Temperature Limit"
+        ]
+    },
+    {
+        "humanReadable": "there are too many devices nearby",
+        "id": "deviceHigh",
+        "arguments": [
+            "Number of Devices"
+        ]
+    },
+    {
+        "humanReadable": "a sound is played",
+        "id": "soundPlayed",
+        "arguments": []
+    },
+    {
+        "humanReadable": "a new device is detected nearby",
+        "id": "deviceConnected",
+        "arguments": [
+            "Name",
+            "IP",
+            "Vendor",
+            "Mac Address"
+        ]
+    }
+]
