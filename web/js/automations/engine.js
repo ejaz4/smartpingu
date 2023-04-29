@@ -290,7 +290,7 @@ function saveFlow() {
     const ls = window.localStorage;
 
     if (!authenticated) {
-        var w = window.open(`authenticate.html?flow=${encodeURIComponent(btoa(`${hs}/tests/settingsauthwork.html`))}`, undefined, "popup,width=400,height=600")
+        var w = window.open(`authenticate.html?flow=${encodeURIComponent(btoa(`${hostname}/tests/settingsauthwork.html`))}`, undefined, "popup,width=400,height=600")
         var timer = setInterval(function () {
             if (w.closed) {
                 clearInterval(timer);
@@ -299,7 +299,7 @@ function saveFlow() {
                         return;
                     }
                     const ls = window.localStorage
-                    const verifyFetch = await fetch(`${window.location.protocol}//${window.location.hostname}:3000/verify`, {
+                    const verifyFetch = await fetch(`${hostname}:3000/verify`, {
                         method: 'post',
                         body: JSON.stringify({
                             sessionID: ls.getItem("session")
