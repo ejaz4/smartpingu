@@ -1,0 +1,54 @@
+{
+    "Pingu Online": {
+        "trigger": "internetConnected",
+        "steps": [
+            {
+                "id": 1,
+                "step": "playSound",
+                "arguments": [
+                    "loadsofdevices.mp3"
+                ]
+            }
+        ]
+    },
+    "Temperature Sender": {
+        "trigger": "temperatureHigh",
+        "steps": [
+            {
+                "id": 1,
+                "step": "consoleLog",
+                "arguments": [
+                    "_global+Current Temperature"
+                ]
+            },
+            {
+                "id": 2,
+                "step": "playSound",
+                "arguments": [
+                    "loadsofdevices.mp3"
+                ]
+            },
+            {
+                "id": 3,
+                "step": "sendGETRequest",
+                "arguments": [
+                    "http://smartpingu.local/"
+                ]
+            },
+            {
+                "id": 4,
+                "step": "consoleLog",
+                "arguments": [
+                    "The request is finished ayeeee"
+                ]
+            },
+            {
+                "id": 5,
+                "step": "consoleLog",
+                "arguments": [
+                    "_3+Response"
+                ]
+            }
+        ]
+    }
+}

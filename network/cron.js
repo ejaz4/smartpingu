@@ -3,13 +3,14 @@ import find from 'local-devices';
 import oui from 'oui';
 import { addEvent } from '../logging/events.js';
 import { sound } from '../sounds/index.js'
+import { triggerAutomation } from '../automations/index.js';
 
-export const networkCron = async() => {
+export const networkCron = async () => {
     if (fs.existsSync("network.json")) {
         const networkDevices = JSON.parse(fs.readFileSync("network.json"));
 
-        const currentDevices = await find();
-        
+        const currentDevices = JSON.parse(fs.readFileSync("proposedNetwork.json"))
+
         var currentlyJoinedDevices = [];
         var anyNew = false;
 
@@ -17,22 +18,19 @@ export const networkCron = async() => {
             var found = false;
             var foundAt = 0;
             networkDevices.forEach((reg, index) => {
-                console.log(`${device.mac} ${reg.mac}` , device.mac == reg.mac);
+                // console.log(`${device.mac} ${reg.mac}`, device.mac == reg.mac);
                 if (device.mac == reg.mac) {
                     found = true;
                     foundAt = index;
                 }
-            })
-            
+            });
 
             if (!found) {
                 anyNew = true;
-                const vendor = await oui(device.mac)
 
                 const newDevice = {
                     ...device,
-                    firstSeen: Date.now(),
-                    vendor: vendor ? vendor.split("\n") : "Unknown"
+                    firstSeen: Date.now()
                 }
 
                 addEvent({
@@ -43,16 +41,23 @@ export const networkCron = async() => {
                     trigger: "CRON"
                 })
 
-                console.log(newDevice);
+                // console.log(newDevice);
 
+                triggerAutomation("deviceConnected", [
+                    device.name,
+                    device.ip,
+                    device.vendor,
+                    device.mac
+                ])
                 currentlyJoinedDevices.push(newDevice);
             } else {
                 const obj = networkDevices[foundAt];
-                
-                
+
+
                 currentlyJoinedDevices.push(obj);
             }
         }
+
 
         if (anyNew) {
             const manifest = JSON.parse(fs.readFileSync("manifest.json"));
