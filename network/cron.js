@@ -27,10 +27,13 @@ export const networkCron = async () => {
 
             if (!found) {
                 anyNew = true;
+                const vendor = await oui(device.mac)
+
 
                 const newDevice = {
                     ...device,
-                    firstSeen: Date.now()
+                    firstSeen: Date.now(),
+                    vendor: vendor ? vendor.split("\n") : "Unknown"
                 }
 
                 addEvent({
