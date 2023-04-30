@@ -1,5 +1,6 @@
 import player from 'play-sound';
 import fs from 'fs';
+import { triggerAutomation } from '../automations/index.js';
 
 export async function sound(filename, first = true) {
     const manifest = JSON.parse(fs.readFileSync("manifest.json"));
@@ -23,6 +24,7 @@ export async function sound(filename, first = true) {
         if (manifest["sounds"]["speech"] == true) {
             device.play(filename);
         }
+        triggerAutomation("soundPlayed")
     }
 
     return true;
