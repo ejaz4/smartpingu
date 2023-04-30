@@ -32,7 +32,40 @@
                     "URL"
                 ],
                 "out": [
-                    "Response"
+                    "Response",
+                    "Status Code"
+                ]
+            }
+        },
+        {
+            "humanReadable": "Send a POST request to a server",
+            "id": "sendPOSTRequest",
+            "arguments": {
+                "in": [
+                    "URL",
+                    "Body",
+                    "Headers"
+                ],
+                "out": [
+                    "Response",
+                    "Status Code"
+                ]
+            }
+        }
+    ],
+    "Integrations": [
+        {
+            "humanReadable": "Send a message to a channel on Discord",
+            "id": "discordWebhook",
+            "arguments": {
+                "in": [
+                    "Webhook URL",
+                    "Message",
+                    "Nickname",
+                    "Avatar URL"
+                ],
+                "out": [
+                    "Status Code"
                 ]
             }
         }
@@ -89,6 +122,14 @@
                 "out": [
                     "Manifest Version"
                 ]
+            }
+        },
+        {
+            "humanReadable": "Restart Smart Pingu",
+            "id": "restart",
+            "arguments": {
+                "in": [],
+                "out": []
             }
         }
     ]

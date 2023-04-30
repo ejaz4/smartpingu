@@ -18,22 +18,19 @@ export const networkCron = async () => {
             var found = false;
             var foundAt = 0;
             networkDevices.forEach((reg, index) => {
-                console.log(`${device.mac} ${reg.mac}`, device.mac == reg.mac);
+                // console.log(`${device.mac} ${reg.mac}`, device.mac == reg.mac);
                 if (device.mac == reg.mac) {
                     found = true;
                     foundAt = index;
                 }
-            })
-
+            });
 
             if (!found) {
                 anyNew = true;
-                const vendor = await oui(device.mac)
 
                 const newDevice = {
                     ...device,
-                    firstSeen: Date.now(),
-                    vendor: vendor ? vendor.split("\n") : "Unknown"
+                    firstSeen: Date.now()
                 }
 
                 addEvent({
@@ -50,7 +47,6 @@ export const networkCron = async () => {
                     newDevice.vendor,
                     device.mac
                 ]);
-
                 currentlyJoinedDevices.push(newDevice);
             } else {
                 const obj = networkDevices[foundAt];
@@ -59,6 +55,7 @@ export const networkCron = async () => {
                 currentlyJoinedDevices.push(obj);
             }
         }
+
 
         if (anyNew) {
             const manifest = JSON.parse(fs.readFileSync("manifest.json"));

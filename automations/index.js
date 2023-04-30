@@ -4,6 +4,7 @@ import fetch from 'node-fetch';
 import { checkForUpdate } from '../update/index.js';
 import { addEvent } from '../logging/events.js';
 
+
 var automations = {};
 var triggerProperties = {};
 var actions = {};
@@ -80,7 +81,22 @@ const runFlow = async (steps, automationID, variables) => {
             if (arg.startsWith("_")) {
                 args.push(hotVars[arg]);
             } else {
-                args.push(arg);
+                const dynamicVarRegex = /\*(.*?)\*/g;
+
+                var newArg = arg;
+                var m;
+
+                do {
+                    m = dynamicVarRegex.exec(newArg);
+                    if (m) {
+                        if (Object.keys(hotVars).includes(m[1])) {
+                            newArg = newArg.replace(m[0], hotVars[m[1]])
+                            dynamicVarRegex.lastIndex = 0;
+                        }
+                    }
+                } while (m);
+
+                args.push(newArg);
             }
         }
 
@@ -103,6 +119,44 @@ const runFlow = async (steps, automationID, variables) => {
             const requestText = await request.text();
 
             hotVars[`_${step.id}+Response`] = requestText;
+            hotVars[`_${step.id}+Status Code`] = request.status;
+        }
+
+        if (step.step == "sendPOSTRequest") {
+            var headers;
+
+            try {
+                headers = JSON.parse(args[2]);
+            } catch (err) {
+                headers = {};
+            }
+
+            const request = await fetch(args[0], {
+                method: 'POST',
+                body: args[1],
+                headers: headers
+            });
+            const requestText = await request.text();
+
+            hotVars[`_${step.id}+Response`] = requestText;
+            hotVars[`_${step.id}+Status Code`] = request.status;
+        }
+
+        // Integrations
+        if (step.step == "discordWebhook") {
+            const request = await fetch(args[0], {
+                method: 'POST',
+                body: JSON.stringify({
+                    "content": args[1],
+                    "username": args[2],
+                    "avatar_url": args[3]
+                }),
+                headers: {
+                    "content-type": "application/json"
+                }
+            });
+
+            hotVars[`_${step.id}+Status Code`] = request.status;
         }
 
         // Maintenance
@@ -111,7 +165,9 @@ const runFlow = async (steps, automationID, variables) => {
         }
 
         if (step.step == "forceLogout") {
-            fs.rmSync("auth.lock");
+            fs.writeFileSync("auth.lock", "", {
+                flag: "w+"
+            });
         }
 
         if (step.step == "logEvent") {
@@ -140,6 +196,11 @@ const runFlow = async (steps, automationID, variables) => {
             const manifest = JSON.parse(fs.readFileSync("manifest.json"));
 
             hotVars[`_${step.id}+Manifest Version`] = manifest.version;
+
+        }
+
+        if (step.step == "restart") {
+            process.exit(0)
         }
 
 
