@@ -1,4 +1,4 @@
-// import sensor from 'node-dht-sensor';
+import sensor from 'node-dht-sensor';
 import { sound } from '../sounds/index.js'
 import { addEvent } from '../logging/events.js';
 import { triggerAutomation } from '../automations/index.js';
