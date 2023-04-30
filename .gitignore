@@ -1,6 +1,7 @@
 node_modules/
 auth.lock
 manifest.json
+automations.json
 events.json
 network.json
 tempHumid.json

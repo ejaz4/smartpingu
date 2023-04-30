@@ -20,6 +20,9 @@ export const startUp = () => {
         }
     }
 
+    if (!fs.existsSync("automations.json")) {
+        fs.writeFileSync("automations.json", JSON.stringify({}), { flag: 'w+' })
+    }
 
 
     fs.writeFileSync("manifest.json", JSON.stringify(manifest), {
