@@ -40,7 +40,7 @@
                 </div>
             </a>
 
-            <a class="hidden" href="#sound">
+            <a href="#sound">
                 <div class="categoryItem">
                     <div>
                         <img src="/images/volume.svg" alt="" />
@@ -135,19 +135,14 @@
             <a href="#setup" class="backButton"><img src="/images/chevron-left.svg" />Back</a>
             <h2>Sound</h2>
             <p>Configure settings related to your sound.</p>
-            <input type="checkbox" id="playSounds" name="playSounds" checked>
-            <label for="playSounds">Play Sounds via Smart Pingu's speakers</label><br>
+            <input type="checkbox" id="warningChime" name="warningChime" checked>
+            <label for="warningChime">Play warning chime</label><br>
 
-            <p>Set the maximum temperature you want the environment to get, before you are alerted to turn down your
-                heating.</p>
-            <input type="number" id="temperatureMax" name="temperatureMax" min="0" max="40">
-            <br><br>
+            <input type="checkbox" id="speech" name="speech" checked>
+            <label for="speech">Play voice sound effects</label><br>
 
-            <input type="checkbox" id="humidity" name="humidity" checked>
-            <label for="humidity">Allow Smart Pingu to take humidity readings of the environment</label><br>
-            <br>
-            <p>Set the maximum humidity % you want the environment to get, before you are alerted.</p>
-            <input type="number" id="humidityMax" name="humidityMax" min="0" max="100">
+            <input type="checkbox" id="shorterChime" name="shorterChime" checked>
+            <label for="shorterChime">Use a more gentle chime</label><br>
             <br><br>
 
             <button class="saveButton" onclick="submit()">Save</button>

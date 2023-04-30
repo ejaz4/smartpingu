@@ -20,5 +20,10 @@
         "enabled": false,
         "max": 10,
         "newDeviceNotification": false
+    },
+    "sounds": {
+        "warningChime": true,
+        "speech": true,
+        "shorterChime": false
     }
 }

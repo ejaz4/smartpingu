@@ -18,6 +18,7 @@ export const settingsRoutes = () => {
             "temperature": manifestJSON.temperature,
             "humidity": manifestJSON.humidity,
             "network": manifestJSON.network,
+            "sounds": manifestJSON.sounds
         });
     });
 
@@ -56,18 +57,18 @@ export const settingsRoutes = () => {
     })
 
 
-    app.get("/update/check", async(req, res) => {
+    app.get("/update/check", async (req, res) => {
         const updates = await checkForUpdate()
 
         return res.send(updates)
     })
 
-    app.get("/update/download", async(req, res) => {
+    app.get("/update/download", async (req, res) => {
         await updateNow()
 
         setTimeout(() => {
             process.exit(0)
-        },3000)
+        }, 3000)
 
         res.send({
             status: "success"

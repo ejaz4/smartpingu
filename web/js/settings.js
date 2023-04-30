@@ -67,6 +67,10 @@ async function submit() {
         const humidity = document.getElementById('humidity').checked;
         const maxHumidity = document.getElementById("humidityMax").value;
 
+        const warningChime = document.getElementById('warningChime').checked;
+        const speech = document.getElementById('speech').checked;
+        const shorterChime = document.getElementById('shorterChime').checked;
+
         var data = {
             "oobe": true,
             "temperature": {
@@ -83,6 +87,11 @@ async function submit() {
                 "enabled": networkScan,
                 "max": parseInt(maxDevices),
                 "newDeviceNotification": newDeviceNotification
+            },
+            "sounds": {
+                "warningChime": warningChime,
+                "speech": speech,
+                "shorterChime": shorterChime
             }
         }
 
@@ -126,6 +135,10 @@ async function submit() {
 
             document.getElementById('humidity').checked = settingsData["humidity"]["enabled"];
             document.getElementById("humidityMax").value = settingsData["humidity"]["max"];
+
+            document.getElementById('warningChime').checked = settingsData["sounds"]["warningChime"];
+            document.getElementById('speech').checked = settingsData["sounds"]["speech"]
+            document.getElementById('shorterChime').checked = settingsData["sounds"]["shorterChime"];
         }
     }
 })()
