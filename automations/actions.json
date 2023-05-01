@@ -70,6 +70,90 @@
             }
         }
     ],
+    "Parsing": [
+        {
+            "humanReadable": "Parse JSON and get a value",
+            "id": "parseJSONandGetValue",
+            "arguments": {
+                "in": [
+                    "JSON",
+                    "Key"
+                ],
+                "out": [
+                    "Value"
+                ]
+            }
+        }
+    ],
+    "Operators": [
+        {
+            "humanReadable": "A add B",
+            "id": "addition",
+            "arguments": {
+                "in": [
+                    "A",
+                    "B"
+                ],
+                "out": [
+                    "Value"
+                ]
+            }
+        },
+        {
+            "humanReadable": "A subtract B",
+            "id": "subtraction",
+            "arguments": {
+                "in": [
+                    "A",
+                    "B"
+                ],
+                "out": [
+                    "Value"
+                ]
+            }
+        },
+        {
+            "humanReadable": "A multiply B",
+            "id": "multiplication",
+            "arguments": {
+                "in": [
+                    "A",
+                    "B"
+                ],
+                "out": [
+                    "Value"
+                ]
+            }
+        },
+        {
+            "humanReadable": "A divide B",
+            "id": "division",
+            "arguments": {
+                "in": [
+                    "A",
+                    "B"
+                ],
+                "out": [
+                    "Value"
+                ]
+            }
+        }
+    ],
+    "Manipulation": [
+        {
+            "humanReadable": "A join B",
+            "id": "joiningStrings",
+            "arguments": {
+                "in": [
+                    "A",
+                    "B"
+                ],
+                "out": [
+                    "Value"
+                ]
+            }
+        }
+    ],
     "Maintenance": [
         {
             "humanReadable": "Check for system updates",

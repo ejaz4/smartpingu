@@ -24,6 +24,14 @@ export const startUp = () => {
         fs.writeFileSync("automations.json", JSON.stringify({}), { flag: 'w+' })
     }
 
+    if (!fs.existsSync("tempHistory.json")) {
+        fs.writeFileSync("tempHistory.json", JSON.stringify([]), { flag: 'w+' })
+    }
+
+    if (!fs.existsSync("networkHistory.json")) {
+        fs.writeFileSync("networkHistory.json", JSON.stringify([]), { flag: 'w+' })
+    }
+
 
     fs.writeFileSync("manifest.json", JSON.stringify(manifest), {
         flag: "w+"

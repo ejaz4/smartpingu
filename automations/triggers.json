@@ -33,5 +33,27 @@
             "Vendor",
             "Mac Address"
         ]
+    },
+    {
+        "humanReadable": "a successful login takes place",
+        "id": "loginSuccess",
+        "arguments": [
+            "IP"
+        ]
+    },
+    {
+        "humanReadable": "an unsuccessful login takes place",
+        "id": "loginFailure",
+        "arguments": [
+            "IP"
+        ]
+    },
+    {
+        "humanReadable": "a setting is changed",
+        "id": "settingsChanged",
+        "arguments": [
+            "Setting",
+            "New Value"
+        ]
     }
 ]

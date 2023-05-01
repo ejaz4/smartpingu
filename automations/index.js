@@ -10,6 +10,10 @@ var triggerProperties = {};
 var actions = {};
 
 export const automationEngine = () => {
+    automations = {};
+    triggerProperties = {};
+    actions = {};
+
     const triggers = JSON.parse(fs.readFileSync("automations/triggers.json"));
 
     for (const trigger of triggers) {
@@ -48,6 +52,8 @@ export const triggerAutomation = (automationID, args) => {
     if (!Object.keys(automations).includes(automationID)) {
         return false;
     }
+
+    console.log(`Triggered ${automationID}`);
 
     const flows = automations[automationID];
 
@@ -158,6 +164,40 @@ const runFlow = async (steps, automationID, variables) => {
 
             hotVars[`_${step.id}+Status Code`] = request.status;
         }
+
+        // Parsing
+        if (step.step == "parseJSONandGetValue") {
+            const value = JSON.parse(args[0])[args[1]];
+
+            if (typeof value == 'object') {
+                hotVars[`_${step.id}+Value`] = JSON.stringify(value);
+            } else {
+                hotVars[`_${step.id}+Value`] = value.toString();
+            }
+        }
+
+        // Operators
+        if (step.step == "addition") {
+            hotVars[`_${step.id}+Value`] = args[0] + args[1]
+        }
+
+        if (step.step == "subtraction") {
+            hotVars[`_${step.id}+Value`] = args[0] - args[1]
+        }
+
+        if (step.step == "multiplication") {
+            hotVars[`_${step.id}+Value`] = args[0] * args[1]
+        }
+
+        if (step.step == "division") {
+            hotVars[`_${step.id}+Value`] = args[0] / args[1]
+        }
+
+        // Manipulation
+        if (step.step == "joiningStrings") {
+            hotVars[`_${step.id}+Value`] = `${args[0]}${args[1]}`
+        }
+
 
         // Maintenance
         if (step.step == "checkForUpdates") {

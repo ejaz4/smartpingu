@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import fs from 'fs';
 import { settingsRoutes } from './settings.js'
 import { addEvent } from '../logging/events.js'
+import { triggerAutomation } from '../automations/index.js';
 
 export const authRoutes = () => {
     app.post('/authenticate', async (req, res) => {
@@ -13,7 +14,7 @@ export const authRoutes = () => {
 
         if (verified) {
             const sessionID = crypto.randomBytes(16).toString("hex");
-            
+
             addEvent({
                 type: "Login",
                 title: "New Login",
@@ -21,12 +22,14 @@ export const authRoutes = () => {
                 timestamp: Date.now(),
                 trigger: "Security"
             })
-            
+
             fs.writeFileSync("auth.lock", sessionID);
+            triggerAutomation("loginSuccess", [req.ip])
             res.status(200).send({
                 sessionID: sessionID
             })
         } else {
+            triggerAutomation("loginFailure", [req.ip])
             res.status(403).send({
                 error: "Incorrect password"
             })

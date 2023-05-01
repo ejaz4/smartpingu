@@ -206,6 +206,11 @@ const loadFlow = async (hot = false) => {
         addDots();
     }
 
+    if (flowHotState.steps.length == 0) {
+        document.getElementById("saveBtn").innerText = "Delete Flow"
+    } else {
+        document.getElementById("saveBtn").innerText = "Save"
+    }
 }
 
 const loadEditor = async () => {
@@ -318,19 +323,37 @@ function saveFlow() {
             }
         }, 1000);
     } else {
-        fetch(`${hostname}:3000/automations/flows/${flowID}`, {
-            method: "POST",
-            body: JSON.stringify(flowHotState),
-            headers: {
-                "session-id": ls.getItem("session")
+        if (flowHotState.steps.length == 0) {
+            const deleteFlow = confirm(`Are you sure you want to delete the flow "${flowID}".\n\nWARNING: This action is irreversible.`);
+
+            if (confirm) {
+                fetch(`${hostname}:3000/automations/flows/${flowID}/delete`, {
+                    headers: {
+                        "session-id": ls.getItem("session")
+                    }
+                }).then((res) => {
+                    if (res.status == 200) {
+                        window.location.replace("/automations/automations.html");
+                    } else {
+                        alert("Sorry! That didn't work.")
+                    }
+                })
             }
-        }).then((res) => {
-            if (res.status == 200) {
-                alert("Success")
-            } else {
-                alert("Sorry! That didn't work.")
-            }
-        })
+        } else {
+            fetch(`${hostname}:3000/automations/flows/${flowID}`, {
+                method: "POST",
+                body: JSON.stringify(flowHotState),
+                headers: {
+                    "session-id": ls.getItem("session")
+                }
+            }).then((res) => {
+                if (res.status == 200) {
+                    alert("Success")
+                } else {
+                    alert("Sorry! That didn't work.")
+                }
+            })
+        }
     }
 }
 

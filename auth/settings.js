@@ -3,6 +3,7 @@ import fs from 'fs';
 import { verifySession } from './index.js';
 import { sound } from '../sounds/index.js';
 import { checkForUpdate, updateNow } from '../update/index.js';
+import { triggerAutomation } from '../automations/index.js';
 
 export const settingsRoutes = () => {
     app.get('/settings', (req, res) => {
@@ -39,6 +40,23 @@ export const settingsRoutes = () => {
             const settings = JSON.parse(req.body);
 
             Object.keys(settings).forEach((key) => {
+                if (typeof settings[key] == 'object') {
+                    if (JSON.stringify(manifestJSON[key]) != JSON.stringify(settings[key])) {
+                        var readableSetting = JSON.stringify(settings[key])
+
+                        triggerAutomation("settingsChanged", [
+                            key, readableSetting
+                        ]);
+                    }
+                } else {
+                    if (manifestJSON[key] != settings[key]) {
+                        var readableSetting = settings[key].toString()
+
+                        triggerAutomation("settingsChanged", [
+                            key, readableSetting
+                        ]);
+                    }
+                }
                 manifestJSON[key] = settings[key];
             });
 

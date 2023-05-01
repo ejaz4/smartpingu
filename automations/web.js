@@ -1,6 +1,7 @@
 import { app } from "../app.js";
 import fs from "fs";
 import { verifySession } from "../auth/index.js";
+import { automationEngine } from "./index.js";
 
 export const automationRoutes = () => {
     app.get("/automations/flows", (req, res) => {
@@ -13,6 +14,32 @@ export const automationRoutes = () => {
         const flowFile = JSON.parse(fs.readFileSync("automations.json"));
 
         res.send(flowFile[req.params.flowID])
+    })
+
+    app.get("/automations/flows/:flowID/delete", (req, res) => {
+        const sessionID = verifySession(req.headers['session-id']);
+
+
+        if (!sessionID) {
+            res.status(403).send({
+                status: "error",
+                message: "No session ID provided"
+            });
+        }
+
+        if (sessionID) {
+            const flowFile = JSON.parse(fs.readFileSync("automations.json"));
+            delete flowFile[req.params.flowID];
+
+            automationEngine();
+
+            fs.writeFileSync("automations.json", JSON.stringify(flowFile), {
+                flag: "w+"
+            })
+            res.send({
+                status: "success"
+            });
+        }
     })
 
     app.get("/automations/editor/actions", (req, res) => {
@@ -47,6 +74,8 @@ export const automationRoutes = () => {
             flowFile[flowID] = proposedFlowFile;
 
             fs.writeFileSync("automations.json", JSON.stringify(flowFile), { flag: "w+" });
+
+            automationEngine();
             res.send({
                 status: "success"
             })

@@ -22,7 +22,7 @@ const loadAutomations = async () => {
         div.classList.add("categoryItem");
         div.addEventListener("click", async() => {
             if (!authenticated) {
-                window.location.href = `/authenticate.html?flowID=${encodeURIComponent(btoa(window.location.toString()))}`
+                window.location.href = `/authenticate.html?flow=${encodeURIComponent(btoa(window.location.toString()))}`
             } else {
                 const name = prompt("Enter a name for this flow:");
 
