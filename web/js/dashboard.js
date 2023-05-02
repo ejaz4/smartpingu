@@ -11,29 +11,39 @@ const main = async () => {
 
         if (recentsFetch.status == 200) {
             const recents = await recentsFetch.json();
-            const table = document.getElementById("recent-events")
+            const table = document.getElementById("recent-events");
 
             recents.forEach((recItem, index) => {
-                const recentsElement = document.createElement("div");
-                recentsElement.classList.add("row");
+                var oneHourWindow = Date.now() - (60 * 60 * 1000);
 
-                const type = document.createElement("div");
-                type.classList.add("cell");
-                type.innerText = recItem.type;
+                if (oneHourWindow < recItem.timestamp) {
+                    const recentsElement = document.createElement("div");
+                    recentsElement.classList.add("recents");
 
-                const title = document.createElement("div");
-                title.classList.add("cell");
-                title.innerText = recItem.title;
+                    const title = document.createElement("h3");
+                    title.innerText = `${recItem.title} • ${recItem.type}`;
 
-                const description = document.createElement("div");
-                description.classList.add("cell");
-                description.innerText = recItem.description
+                    const description = document.createElement("p");
+                    // description.classList.add("cell");
+                    description.innerText = recItem.description
 
-                recentsElement.appendChild(type)
-                recentsElement.appendChild(title)
-                recentsElement.appendChild(description)
+                    const time = document.createElement("p");
+                    // description.classList.add("cell");
+                    const rID = btoa(Math.random());
+                    time.innerText = `${timeDifference(Date.now(), recItem.timestamp)} ago`
+                    time.id = rID;
 
-                table.appendChild(recentsElement)
+                    setInterval(() => {
+                        document.getElementById(rID).innerText = `${timeDifference(Date.now(), recItem.timestamp)} ago`
+                    }, 400)
+
+                    // recentsElement.appendChild(type)
+                    recentsElement.appendChild(title)
+                    recentsElement.appendChild(description)
+                    recentsElement.appendChild(time)
+
+                    table.appendChild(recentsElement)
+                }
             })
         }
 
@@ -112,6 +122,8 @@ const main = async () => {
                     const deviceElement = document.createElement("div");
                     deviceElement.classList.add("row");
 
+                    const rID = btoa(Math.random());
+
                     const nameCell = document.createElement("div");
                     nameCell.classList.add("cell");
                     nameCell.innerText = device.name;
@@ -128,25 +140,29 @@ const main = async () => {
                     vendorCell.classList.add("cell");
                     vendorCell.innerText = (device.vendor[0] == "U") ? "Unknown" : device.vendor[0];
 
-                    let unix_timestamp = device.firstSeen
-                    var timestampNow = Date.now()
-                    // Create a new JavaScript Date object based on the timestamp
-                    // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-                    var date = new Date(timestampNow - unix_timestamp);
-                    // Hours part from the timestamp
-                    var hours = date.getHours() - 1;
-                    // Minutes part from the timestamp
-                    var minutes = "0" + date.getMinutes();
-                    // Seconds part from the timestamp
-                    var seconds = "0" + date.getSeconds();
-
-                    // Will display time in 10:30:23 format
-                    var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-
                     const timeCell = document.createElement("div");
                     timeCell.classList.add("cell");
-                    timeCell.innerText = formattedTime;
+                    timeCell.id = rID
+                    timeCell.innerText = ``;
 
+                    setInterval(() => {
+                        let unix_timestamp = device.firstSeen
+                        var timestampNow = Date.now()
+                        // Create a new JavaScript Date object based on the timestamp
+                        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+                        var date = new Date(timestampNow - unix_timestamp);
+                        // Hours part from the timestamp
+                        var hours = date.getHours() - 1;
+                        // Minutes part from the timestamp
+                        var minutes = "0" + date.getMinutes();
+                        // Seconds part from the timestamp
+                        var seconds = "0" + date.getSeconds();
+
+                        // Will display time in 10:30:23 format
+                        var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+                        document.getElementById(rID).innerText = formattedTime;
+                    }, 400);
 
                     deviceElement.appendChild(nameCell);
                     deviceElement.appendChild(ipCell);
