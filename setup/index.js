@@ -24,12 +24,20 @@ export const startUp = () => {
         fs.writeFileSync("automations.json", JSON.stringify({}), { flag: 'w+' })
     }
 
+    const date = new Date()
+
     if (!fs.existsSync("tempHistory.json")) {
-        fs.writeFileSync("tempHistory.json", JSON.stringify([]), { flag: 'w+' })
+        fs.writeFileSync("tempHistory.json", JSON.stringify({
+            dateStamp: date.getDate(),
+            history: []
+        }), { flag: 'w+' })
     }
 
     if (!fs.existsSync("networkHistory.json")) {
-        fs.writeFileSync("networkHistory.json", JSON.stringify([]), { flag: 'w+' })
+        fs.writeFileSync("networkHistory.json", JSON.stringify({
+            dateStamp: date.getDate(),
+            history: []
+        }), { flag: 'w+' });
     }
 
 

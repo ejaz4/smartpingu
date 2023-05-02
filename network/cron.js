@@ -14,6 +14,20 @@ export const networkCron = async () => {
         var currentlyJoinedDevices = [];
         var anyNew = false;
 
+        const date = new Date()
+        const networkHistory = JSON.parse(fs.readFileSync("networkHistory.json"));
+
+        if (networkHistory.dateStamp != date.getDate()) {
+            networkHistory.dateStamp = date.getDate();
+            networkHistory.history = [];
+        }
+
+        networkHistory.history.push(currentDevices.length);
+
+        fs.writeFileSync("networkHistory.json", JSON.stringify(networkHistory), {
+            flag: "w+"
+        })
+
         for (const device of currentDevices) {
             var found = false;
             var foundAt = 0;

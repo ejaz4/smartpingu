@@ -17,6 +17,19 @@ export const temperatureCron = async () => {
                 const temp = manifest.temperature;
                 const humid = manifest.humidity;
 
+                const date = new Date()
+                const temperatureHistory = JSON.parse(fs.readFileSync("tempHistory.json"));
+
+                if (temperatureHistory.dateStamp != date.getDate()) {
+                    temperatureHistory.dateStamp = date.getDate();
+                    temperatureHistory.history = [];
+                }
+
+                temperatureHistory.history.push(temperature);
+
+                fs.writeFileSync("tempHistory.json", JSON.stringify(temperatureHistory), {
+                    flag: "w+"
+                })
 
                 if (temp.max < temperature) {
                     if (!fs.existsSync("tempLimit.lock")) {
