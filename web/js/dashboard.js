@@ -1,7 +1,7 @@
 const hostname = `${window.location.protocol}//${window.location.hostname}`;
 
 
-const main = async() => {
+const main = async () => {
     const infoFetch = await fetch(`${hostname}:3000/info`)
     if (infoFetch.status === 200) {
         const info = await infoFetch.json();
@@ -12,7 +12,7 @@ const main = async() => {
         if (recentsFetch.status == 200) {
             const recents = await recentsFetch.json();
             const table = document.getElementById("recent-events")
-            
+
             recents.forEach((recItem, index) => {
                 const recentsElement = document.createElement("div");
                 recentsElement.classList.add("row");
@@ -39,15 +39,15 @@ const main = async() => {
 
         if (info.temperature) {
             const temperature = await fetch(`${hostname}:3000/temperature/now`);
-            
+
             if (temperature.status == 200) {
                 const temperatureJson = await temperature.json();
 
                 const temp = temperatureJson.temperature;
 
-                document.getElementById("temperature").innerText = `${Math.floor(temp)}°C`;
+                document.getElementById("temperature").innerText = `${Math.round(temp)}°C`;
 
-                document.getElementById("temperature").addEventListener("click", async() => {
+                document.getElementById("temperature").addEventListener("click", async () => {
                     document.getElementById("temperature").classList.add("hidden");
                     document.getElementsByClassName("temperatureLoading")[0].classList.remove("hidden");
 
@@ -55,8 +55,15 @@ const main = async() => {
                         if (res.status == 200) {
                             window.location.reload();
                         }
-                    })
-                })
+                    });
+                });
+
+                const prediction = await fetch(`${hostname}:3000/temperature/predict`);
+                if (prediction.status == 200) {
+                    const predictionJSON = await prediction.json()
+
+                    document.getElementById("prediction").innerText = `${Math.round(predictionJSON.point)}°C in ${predictionJSON.time} minutes`
+                }
             }
         } else {
             const temperatureItems = document.getElementsByClassName("temperature");
@@ -68,7 +75,7 @@ const main = async() => {
 
         if (info.humidity) {
             const humidity = await fetch(`${hostname}:3000/temperature/now`);
-            
+
             if (humidity.status == 200) {
                 const humidityJson = await humidity.json();
 
@@ -76,7 +83,7 @@ const main = async() => {
 
                 document.getElementById("humidity").innerText = `${Math.floor(humid)}%`;
 
-                document.getElementById("humidity").addEventListener("click", async() => {
+                document.getElementById("humidity").addEventListener("click", async () => {
                     document.getElementById("humidity").classList.add("hidden");
                     document.getElementsByClassName("humidityLoading")[0].classList.remove("hidden");
 
@@ -153,7 +160,7 @@ const main = async() => {
 
                 document.getElementById("network").innerText = devicesJson.length;
 
-                document.getElementById("network").addEventListener("click", async() => {
+                document.getElementById("network").addEventListener("click", async () => {
                     document.getElementById("network").classList.add("hidden");
                     document.getElementsByClassName("networkLoading")[0].classList.remove("hidden");
 

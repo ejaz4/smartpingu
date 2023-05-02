@@ -4,7 +4,7 @@ import { addEvent } from '../logging/events.js';
 import { triggerAutomation } from '../automations/index.js';
 import fs from 'fs';
 
-export const temperatureCron = async () => {
+export const temperatureCron = async (cron = false) => {
     try {
         await sensor.read(22, 4, (err, temperature, humidity) => {
             if (!err) {
@@ -17,7 +17,7 @@ export const temperatureCron = async () => {
                 const temp = manifest.temperature;
                 const humid = manifest.humidity;
 
-                const date = new Date()
+                const date = new Date();
                 const temperatureHistory = JSON.parse(fs.readFileSync("tempHistory.json"));
 
                 if (temperatureHistory.dateStamp != date.getDate()) {
@@ -27,9 +27,11 @@ export const temperatureCron = async () => {
 
                 temperatureHistory.history.push(temperature);
 
-                fs.writeFileSync("tempHistory.json", JSON.stringify(temperatureHistory), {
-                    flag: "w+"
-                })
+                if (cron == true) {
+                    fs.writeFileSync("tempHistory.json", JSON.stringify(temperatureHistory), {
+                        flag: "w+"
+                    })
+                }
 
                 if (temp.max < temperature) {
                     if (!fs.existsSync("tempLimit.lock")) {

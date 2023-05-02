@@ -18,7 +18,7 @@ export const taskScheduler = () => {
     setInterval(() => {
         const manifest = JSON.parse(fs.readFileSync("manifest.json"));
         if (manifest["temperature"]["enabled"]) {
-            temperatureCron();
+            temperatureCron(true);
         }
     }, 45000)
 
