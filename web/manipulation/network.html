@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network - Manipulation Home</title>
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+
+<body>
+    <div class="content">
+        <div class="newDevice">
+            <h2>New Device</h2>
+            <p>Name</p>
+            <input type="text" id="name">
+            <p>Vendor</p>
+            <input type="text" name="" id="vendor">
+            <p>IP Address</p>
+            <input type="text" name="" id="ip">
+            <p>Mac</p>
+            <input type="text" readonly id="mac">
+            <button onclick="createDevice()">Create Device</button>
+        </div>
+
+        <div class="connectedDevices">
+            <div class="device">
+                <p>Name: yes</p>
+                <p>Name: no</p>
+                <p>Name: maybe</p>
+                <button>Disconnect</button>
+            </div>
+        </div>
+
+        <div id="inactiveDevices">
+
+        </div>
+    </div>
+
+    <script>
+        const hostname = `${window.location.protocol}//${window.location.hostname}`;
+
+        function randomMac() {
+            return "XX:XX:XX:XX:XX:XX".replace(/X/g, function () {
+                return "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))
+            });
+        }
+
+        const ls = window.localStorage;
+
+        document.getElementById("mac").value = randomMac();
+
+        if (ls.getItem("devicesManip") == null) {
+            ls.setItem("devicesManip", "[]");
+        }
+
+
+        var inactiveDevices = JSON.parse(ls.getItem("devicesManip"));
+        var newIA = [];
+
+        fetch(`${hostname}:3000/network/devices`).then((res) => {
+            res.json().then((data) => {
+
+                data.forEach((item, index) => {
+
+                })
+
+                for (const iA of newIA) {
+                    const dev = document.createElement("div");
+
+                    const name = document.createElement("p")
+                    name.innerText = iA.name;
+
+                    const ip = document.createElement("p");
+                    ip.innerText = iA.ip
+
+                    const mac = document.createElement("p");
+                    mac.innerText = iA.mac
+
+                    const vendor = document.createElement("p");
+                    vendor.innerText = iA.vendor[0]
+
+                    const connectBtn = document.createElement("button");
+                    connectBtn.innerText = `Connect`;
+
+                    connectBtn.addEventListener("click", () => {
+                        fetch(`${hostname}:3000/network/devices/new`, {
+                            method: 'post',
+                            body: JSON.stringify([{
+                                name: iA.name,
+                                ip: iA.ip,
+                                mac: iA.mac,
+                                vendor: [iA.vendor[0]]
+                            }])
+                        }).then((res) => {
+                            window.location.reload()
+                        })
+                    });
+
+                    dev.appendChild(name);
+                    dev.appendChild(ip);
+                    dev.appendChild(mac);
+                    dev.appendChild(vendor);
+                    dev.appendChild(connectBtn);
+
+                    document.getElementById("inactiveDevices").appendChild(dev);
+                }
+            })
+        })
+
+        function createDevice() {
+            var loS = window.localStorage;
+
+            const name = document.getElementById("name").value;
+            const vendor = document.getElementById("vendor").value;
+            const ip = document.getElementById("ip").value;
+            const mac = document.getElementById("mac").value;
+
+            const devices = JSON.parse(loS.getItem("devicesManip"));
+            devices.push({
+                name: name,
+                vendor: [vendor],
+                ip: ip,
+                mac: mac
+            })
+            loS.setItem("devicesManip", JSON.stringify(devices));
+
+            window.location.reload()
+        }
+    </script>
+</body>
+<style>
+    .centerDiv {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+</style>
+
+
+<style>
+    .content {
+        padding-left: 20%;
+        padding-right: 20%;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .connectedDevices {
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+        gap: 10px;
+    }
+</style>
+
+</html>

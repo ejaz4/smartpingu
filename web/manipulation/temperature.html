@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network - Manipulation Home</title>
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+
+<body>
+    <div class="content">
+        <h2>Temperature Offset</h2>
+        <button onclick="increment(1)">+</button>
+        <input type="text" id="temperature">
+        <button onclick="increment(-1)">-</button>
+    </div>
+</body>
+<script>
+    const hostname = `${window.location.protocol}//${window.location.hostname}`;
+
+    fetch(`${hostname}:3000/temperature`).then((res) => {
+        res.json()
+            .then((data) => {
+                console.log(data);
+                document.getElementById("temperature").value = data.offset;
+            })
+    })
+
+    function increment(val) {
+        const oldVal = document.getElementById("temperature").value
+        document.getElementById("temperature").value = Number.parseInt(document.getElementById("temperature").value) + val;
+
+        fetch(`${hostname}:3000/temperature`,
+            {
+                body: JSON.stringify({
+                    offset: document.getElementById("temperature").value
+                }),
+                method: 'post'
+            }).then((res) => {
+                if (res.status != 200) {
+                    document.getElementById("temperature").value = oldVal;
+                }
+            })
+    }
+</script>
+<style>
+    .centerDiv {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .content {
+        padding-left: 20%;
+        padding-right: 20%;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .connectedDevices {
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+        gap: 10px;
+    }
+</style>
+
+</html>
