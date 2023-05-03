@@ -1,4 +1,4 @@
-import sensor from 'node-dht-sensor';
+// import sensor from 'node-dht-sensor';
 import { sound } from '../sounds/index.js'
 import { addEvent } from '../logging/events.js';
 import { triggerAutomation } from '../automations/index.js';
@@ -8,8 +8,12 @@ export const temperatureCron = async (cron = false) => {
     try {
         await sensor.read(22, 4, (err, temperature, humidity) => {
             if (!err) {
+                var tempe = temperature
+
+                const offset = Number.parseInt(fs.readFileSync("proposedTemperature").toString());
+
                 fs.writeFileSync("tempHumid.json", JSON.stringify({
-                    temperature: temperature,
+                    temperature: tempe + offset,
                     humidity: humidity
                 }));
 
