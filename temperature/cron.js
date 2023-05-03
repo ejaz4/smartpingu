@@ -29,7 +29,7 @@ export const temperatureCron = async (cron = false) => {
                     temperatureHistory.history = [];
                 }
 
-                temperatureHistory.history.push(temperature);
+                temperatureHistory.history.push(tempe + offset);
 
                 if (cron == true) {
                     fs.writeFileSync("tempHistory.json", JSON.stringify(temperatureHistory), {
