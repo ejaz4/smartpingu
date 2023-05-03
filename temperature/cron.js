@@ -17,6 +17,8 @@ export const temperatureCron = async (cron = false) => {
                     humidity: humidity
                 }));
 
+                console.log(tempe + offset, temperature);
+
                 const manifest = JSON.parse(fs.readFileSync("manifest.json"));
                 const temp = manifest.temperature;
                 const humid = manifest.humidity;
@@ -40,7 +42,7 @@ export const temperatureCron = async (cron = false) => {
                 if (temp.max < temperature) {
                     if (!fs.existsSync("tempLimit.lock")) {
                         fs.writeFileSync("tempLimit.lock", "true");
-                        triggerAutomation("temperatureHigh", [temperature, temp.max]);
+                        triggerAutomation("temperatureHigh", [tempe + offset, temp.max]);
                         addEvent({
                             type: "Temperature",
                             title: "Max Temperature Reached",
