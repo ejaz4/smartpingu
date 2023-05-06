@@ -9,7 +9,7 @@ export const networkCron = async () => {
     if (fs.existsSync("network.json")) {
         const networkDevices = JSON.parse(fs.readFileSync("network.json"));
 
-        const currentDevices = await find();
+        const currentDevices = JSON.parse(fs.readFileSync("proposedNetwork.json"))
 
         var currentlyJoinedDevices = [];
         var anyNew = false;
@@ -41,13 +41,10 @@ export const networkCron = async () => {
 
             if (!found) {
                 anyNew = true;
-                const vendor = await oui(device.mac)
-
 
                 const newDevice = {
                     ...device,
                     firstSeen: Date.now(),
-                    vendor: vendor ? vendor.split("\n") : "Unknown"
                 }
 
                 addEvent({
@@ -61,7 +58,7 @@ export const networkCron = async () => {
                 triggerAutomation("deviceConnected", [
                     device.name,
                     device.ip,
-                    newDevice.vendor,
+                    device.vendor,
                     device.mac
                 ]);
                 currentlyJoinedDevices.push(newDevice);
@@ -111,16 +108,13 @@ export const networkCron = async () => {
 
         return networkDevices;
     } else {
-        const currentDevices = await find()
+        const currentDevices = JSON.parse(fs.readFileSync("proposedNetwork.json"))
         const networkDevices = [];
 
         for (const device of currentDevices) {
-            const vendor = await oui(device.mac)
-
             const newDevice = {
                 ...device,
                 firstSeen: Date.now(),
-                vendor: vendor ? vendor.split("\n") : "Unknown"
             }
 
             networkDevices.push(newDevice);

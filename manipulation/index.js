@@ -35,6 +35,29 @@ export const manipulationRoutes = () => {
         })
     })
 
+    app.post("/network/devices/remove", async(req, res) => {
+        const device = JSON.parse(req.body)[0];
+
+        const proposedFile = JSON.parse(fs.readFileSync("proposedNetwork.json"));
+
+        var newVar = [];
+        
+        for (const devices of proposedFile) {
+            console.log(devices.mac == device.mac)
+            if (devices.mac == device.mac) {
+                
+            } else {
+                newVar.push(devices)
+            }
+        }
+
+        console.log(newVar);
+
+        fs.writeFileSync("proposedNetwork.json", JSON.stringify(newVar), {
+            flag: "w+"
+        })
+    })
+
     app.get("/temperature", async (req, res) => {
         const newTemperatureOffset = fs.readFileSync("proposedTemperature").toString();
 
