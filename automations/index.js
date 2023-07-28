@@ -215,7 +215,8 @@ const runFlow = async (steps, automationID, variables) => {
                 type: "Automations",
                 title: args[0],
                 description: args[1],
-                trigger: "Automations"
+                trigger: "Automations",
+                timestamp: Date.now()
             })
         }
 
