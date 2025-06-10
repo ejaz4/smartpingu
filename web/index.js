@@ -12,7 +12,7 @@ export const setupWebUI = () => {
 
     webUI.listen({
         host: '0.0.0.0',
-        port: 80
+        port: 8001
     }, (err, address) => {
         if (err) {
             console.error(err);
